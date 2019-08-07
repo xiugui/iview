@@ -35,6 +35,7 @@ router.beforeEach((to, from, next) => {
     next({
       name: homeName // 跳转到homeName页
     })
+    iView.LoadingBar.finish()
   } else {
     if (store.state.user.hasGetInfo) {
       turnTo(to, store.state.user.access, next)

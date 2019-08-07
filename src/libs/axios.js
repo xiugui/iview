@@ -1,6 +1,9 @@
 import axios from 'axios'
+import Vue from 'vue'
 import store from '@/store'
 // import { Spin } from 'iview'
+import { getToken, setToken } from './util'
+
 const addErrorLog = errorInfo => {
   const { statusText, status, request: { responseURL } } = errorInfo
   let info = {
@@ -21,7 +24,7 @@ class HttpRequest {
     const config = {
       baseURL: this.baseUrl,
       headers: {
-        //
+        token: getToken()
       }
     }
     return config
@@ -45,22 +48,33 @@ class HttpRequest {
       return Promise.reject(error)
     })
     // 响应拦截
-    instance.interceptors.response.use(res => {
+    instance.interceptors.response.use((res) => {
       this.destroy(url)
       const { data, status } = res
-      return { data, status }
-    }, error => {
-      this.destroy(url)
-      let errorInfo = error.response
-      if (!errorInfo) {
-        const { request: { statusText, status }, config } = JSON.parse(JSON.stringify(error))
-        errorInfo = {
-          statusText,
-          status,
-          request: { responseURL: config.url }
-        }
+
+      if(res.data.resultCode === 401){
+        setToken('')
+        setTimeout(()=>{
+          window.location.href = '/login';
+        },2000)
       }
-      addErrorLog(errorInfo)
+      if(res.data.resultCode !== 0){
+        return Promise.reject({data})
+      }
+      return Promise.resolve({data})
+
+    }, (error) => {
+      this.destroy(url)
+      // let errorInfo = error.response
+      // if (!errorInfo) {
+      //   const { request: { statusText, status }, config } = JSON.parse(JSON.stringify(error))
+      //   errorInfo = {
+      //     statusText,
+      //     status,
+      //     request: { responseURL: config.url }
+      //   }
+      // }
+      // addErrorLog(errorInfo)
       return Promise.reject(error)
     })
   }

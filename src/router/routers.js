@@ -51,6 +51,44 @@ export default [
     ]
   },
   {
+    path: '/system',
+    name: 'system',
+    meta: {
+      icon: 'logo-buffer',
+      title: '系统配置'
+    },
+    component: Main,
+    children: [
+      {
+        path: 'game_version',
+        name: 'game_version',
+        meta: {
+          icon: 'md-arrow-dropdown-circle',
+          title: '游戏版本管理'
+        },
+        component: () => import('@/view/game-version/game-version.vue')
+      },
+      {
+        path: 'file_manage',
+        name: 'file_manage',
+        meta: {
+          icon: 'md-trending-up',
+          title: '文件管理'
+        },
+        component: () => import('@/view/file-manage/file-manage.vue')
+      },
+      {
+        path: 'staff_manage',
+        name: 'staff_manage',
+        meta: {
+          icon: 'ios-infinite',
+          title: '人员管理'
+        },
+        component: () => import('@/view/staff-manage/staff-manage.vue')
+      }
+    ]
+  },
+  /*{
     path: '',
     name: 'doc',
     meta: {
@@ -462,7 +500,7 @@ export default [
         component: () => import('@/view/argu-page/query.vue')
       }
     ]
-  },
+  },*/
   {
     path: '/401',
     name: 'error_401',
