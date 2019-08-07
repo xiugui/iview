@@ -52,17 +52,16 @@ class HttpRequest {
       this.destroy(url)
       const { data, status } = res
 
-      if(res.data.resultCode === 401){
+      if (res.data.resultCode === 401) {
         setToken('')
-        setTimeout(()=>{
-          window.location.href = '/login';
-        },2000)
+        setTimeout(() => {
+          window.location.href = '/login'
+        }, 2000)
       }
-      if(res.data.resultCode !== 0){
-        return Promise.reject({data})
+      if (res.data.resultCode !== 0) {
+        return Promise.reject({ data })
       }
-      return Promise.resolve({data})
-
+      return Promise.resolve({ data })
     }, (error) => {
       this.destroy(url)
       // let errorInfo = error.response

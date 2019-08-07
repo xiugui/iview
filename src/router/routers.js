@@ -88,7 +88,7 @@ export default [
       }
     ]
   },
-  /*{
+  /* {
     path: '',
     name: 'doc',
     meta: {
@@ -500,7 +500,7 @@ export default [
         component: () => import('@/view/argu-page/query.vue')
       }
     ]
-  },*/
+  }, */
   {
     path: '/401',
     name: 'error_401',

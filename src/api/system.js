@@ -30,8 +30,8 @@ export const getFileVersion = () => {
     method: 'post'
   })
 }
-export const uploadFileVersion = ({ filePath, versionId}) => {
-  const data = { filePath, versionId}
+export const uploadFileVersion = ({ filePath, versionId }) => {
+  const data = { filePath, versionId }
   return axios.request({
     url: 'dashboard/common/versions',
     data,

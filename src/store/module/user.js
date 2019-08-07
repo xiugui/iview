@@ -113,11 +113,11 @@ export default {
     // 获取用户相关信息
     getUserInfo ({ state, commit }) {
       return new Promise((resolve, reject) => {
-            commit('setAccess', [])
-            commit('setHasGetInfo', true)
-            resolve({
-              access: []
-            })
+        commit('setAccess', [])
+        commit('setHasGetInfo', true)
+        resolve({
+          access: []
+        })
         // try {
         //   getUserInfo(state.token).then(res => {
         //     const data = res.data

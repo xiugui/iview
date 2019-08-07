@@ -31,158 +31,158 @@
   </div>
 </template>
 <script>
-  import moment from 'moment'
-  import { mapActions } from 'vuex'
-  export default {
-    data () {
-      return {
-        modal2: false,
-        modal_loading: true,
-        file: null,
-        loadingStatus: false,
-        uploadUrl: (process.env.NODE_ENV === 'development' ? this.$config.baseUrl.dev : this.$config.baseUrl.pro) + 'dashboard/common/upload',
-        loading: true,
-        versionId: -1,
-        total: 0,
-        fileList: [],
-        statusList: [],
-        columns: [
-          {
-            title: 'ID',
-            key: 'id',
-            width: 50,
-            fixed: 'left'
-          },
-          {
-            title: '文件名称',
-            key: 'diffFileList',
-            width: '150'
-          },
-          {
-            title: '文件列数',
-            key: 'cols',
-            width: 200
-          },
-          {
-            title: '文件行数',
-            key: 'rows',
-            width: 100
-          },
-          {
-            title: '启用版本id',
-            key: 'testId',
-            width: 100
-          },
-          {
-            title: '作者',
-            key: 'author',
-            width: 100
-          },
-          {
-            title: '添加时间',
-            key: 'createdTime',
-            width: '150',
-            render: (h, params) => {
-              return h('div', [
-                h('span', moment(params.row.createdTime).format(this.$config.dateFilter.ymdHms))
-              ]);
-            }
-          },
-          {
-            title: '修改时间',
-            key: 'updatedTime',
-            width: '150',
-            render: (h, params) => {
-              return h('div', [
-                h('span', moment(params.row.updatedTime).format(this.$config.dateFilter.ymdHms))
-              ]);
-            }
-          },
-          {
-            title: 'Action',
-            key: 'action',
-            fixed: 'right',
-            width: 120,
-            render: (h, params) => {
-              return h('div', [
-                h('Button', {
-                  props: {
-                    type: 'text',
-                    size: 'small'
-                  }
-                }, 'View'),
-                h('Button', {
-                  props: {
-                    type: 'text',
-                    size: 'small'
-                  }
-                }, 'Edit')
-              ]);
-            }
+import moment from 'moment'
+import { mapActions } from 'vuex'
+export default {
+  data () {
+    return {
+      modal2: false,
+      modal_loading: true,
+      file: null,
+      loadingStatus: false,
+      uploadUrl: (process.env.NODE_ENV === 'development' ? this.$config.baseUrl.dev : this.$config.baseUrl.pro) + 'dashboard/common/upload',
+      loading: true,
+      versionId: -1,
+      total: 0,
+      fileList: [],
+      statusList: [],
+      columns: [
+        {
+          title: 'ID',
+          key: 'id',
+          width: 50,
+          fixed: 'left'
+        },
+        {
+          title: '文件名称',
+          key: 'diffFileList',
+          width: '150'
+        },
+        {
+          title: '文件列数',
+          key: 'cols',
+          width: 200
+        },
+        {
+          title: '文件行数',
+          key: 'rows',
+          width: 100
+        },
+        {
+          title: '启用版本id',
+          key: 'testId',
+          width: 100
+        },
+        {
+          title: '作者',
+          key: 'author',
+          width: 100
+        },
+        {
+          title: '添加时间',
+          key: 'createdTime',
+          width: '150',
+          render: (h, params) => {
+            return h('div', [
+              h('span', moment(params.row.createdTime).format(this.$config.dateFilter.ymdHms))
+            ])
           }
-        ],
-      }
-    },
-
-    methods: {
-      ...mapActions([
-        'getFileList',
-        'getFileVersion',
-        'uploadFileVersion'
-      ]),
-      del(){},
-      handleUpload (file) {
-        this.file = file;
-        return false;
-      },
-      upload () {
-        this.loadingStatus = true;
-        this.$refs.upload.post(this.file)
-        this.file = null;
-        this.loadingStatus = false;
-        this.$Message.success('Success')
-      },
-      changeStatus(){
-        this.getList()
-      },
-      getStatusText(status){
-        let text = ''
-        switch (status) {
-          case -1:
-            text = '不限'
-            break
-          case 0:
-            text = '已生效'
-            break
-          default:
-            break
+        },
+        {
+          title: '修改时间',
+          key: 'updatedTime',
+          width: '150',
+          render: (h, params) => {
+            return h('div', [
+              h('span', moment(params.row.updatedTime).format(this.$config.dateFilter.ymdHms))
+            ])
+          }
+        },
+        {
+          title: 'Action',
+          key: 'action',
+          fixed: 'right',
+          width: 120,
+          render: (h, params) => {
+            return h('div', [
+              h('Button', {
+                props: {
+                  type: 'text',
+                  size: 'small'
+                }
+              }, 'View'),
+              h('Button', {
+                props: {
+                  type: 'text',
+                  size: 'small'
+                }
+              }, 'Edit')
+            ])
+          }
         }
-        return text
-      },
-      getList() {
-        this.loading = true
-        let params = {
-          versionId: this.versionId
-        }
-        this.getFileList(params).then(res => {
-          this.fileList = res.data.list
-          this.loading = false
-        }, err => {
-          this.$Message.error(err.data.errorMsg)
-          this.loading = false
-        })
-      },
-      getVersion(){
-        this.getFileVersion().then(res => {
-          this.statusList =  res.data.versions
-        }, err => {
-          this.$Message.error(err.data.errorMsg)
-        })
-      }
-    },
-    mounted(){
-      this.getList()
-      this.getVersion()
+      ]
     }
+  },
+
+  methods: {
+    ...mapActions([
+      'getFileList',
+      'getFileVersion',
+      'uploadFileVersion'
+    ]),
+    del () {},
+    handleUpload (file) {
+      this.file = file
+      return false
+    },
+    upload () {
+      this.loadingStatus = true
+      this.$refs.upload.post(this.file)
+      this.file = null
+      this.loadingStatus = false
+      this.$Message.success('Success')
+    },
+    changeStatus () {
+      this.getList()
+    },
+    getStatusText (status) {
+      let text = ''
+      switch (status) {
+        case -1:
+          text = '不限'
+          break
+        case 0:
+          text = '已生效'
+          break
+        default:
+          break
+      }
+      return text
+    },
+    getList () {
+      this.loading = true
+      let params = {
+        versionId: this.versionId
+      }
+      this.getFileList(params).then(res => {
+        this.fileList = res.data.list
+        this.loading = false
+      }, err => {
+        this.$Message.error(err.data.errorMsg)
+        this.loading = false
+      })
+    },
+    getVersion () {
+      this.getFileVersion().then(res => {
+        this.statusList = res.data.versions
+      }, err => {
+        this.$Message.error(err.data.errorMsg)
+      })
+    }
+  },
+  mounted () {
+    this.getList()
+    this.getVersion()
   }
+}
 </script>

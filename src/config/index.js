@@ -29,7 +29,7 @@ export default {
    */
   dateFilter: {
     ymd: 'YYYY-MM-DD',
-    ymdHms: 'YYYY-MM-DD HH:mm:ss',
+    ymdHms: 'YYYY-MM-DD HH:mm:ss'
   },
   /**
    * @description 需要加载的插件

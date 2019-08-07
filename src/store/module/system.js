@@ -1,4 +1,4 @@
-import { getVersionList, getFileList, getUserList,getFileVersion } from '../../api/system';
+import { getVersionList, getFileList, getUserList, getFileVersion } from '../../api/system'
 import { setToken, getToken } from '@/libs/util'
 
 export default {
@@ -12,9 +12,9 @@ export default {
 
   },
   actions: {
-    getGameVersionList ({ state, commit },{ skip, limit, status }) {
+    getGameVersionList ({ state, commit }, { skip, limit, status }) {
       return new Promise((resolve, reject) => {
-        getVersionList({skip, limit, status}).then(res => {
+        getVersionList({ skip, limit, status }).then(res => {
           const data = res.data
           resolve(data)
         }).catch(err => {
@@ -22,9 +22,9 @@ export default {
         })
       })
     },
-    getFileList ({ state, commit },{ versionId }) {
+    getFileList ({ state, commit }, { versionId }) {
       return new Promise((resolve, reject) => {
-        getFileList({versionId}).then(res => {
+        getFileList({ versionId }).then(res => {
           const data = res.data
           resolve(data)
         }).catch(err => {
@@ -42,9 +42,9 @@ export default {
         })
       })
     },
-    uploadFileVersion ({ state, commit }, { filePath, versionId}) {
+    uploadFileVersion ({ state, commit }, { filePath, versionId }) {
       return new Promise((resolve, reject) => {
-        uploadFileVersion({ filePath, versionId}).then(res => {
+        uploadFileVersion({ filePath, versionId }).then(res => {
           const data = res.data
           resolve(data)
         }).catch(err => {
@@ -52,15 +52,15 @@ export default {
         })
       })
     },
-    getUserList ({ state, commit },{ skip, limit, roleKey }) {
+    getUserList ({ state, commit }, { skip, limit, roleKey }) {
       return new Promise((resolve, reject) => {
-        getUserList({skip, limit, roleKey}).then(res => {
+        getUserList({ skip, limit, roleKey }).then(res => {
           const data = res.data
           resolve(data)
         }).catch(err => {
           reject(err)
         })
       })
-    },
+    }
   }
 }
